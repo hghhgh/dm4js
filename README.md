@@ -50,6 +50,7 @@ let choices = [
 
 dmjs.chooseLinear(model, choices);
 ```
+The return value is 2 which means SSD Pioneer APS-SL2 is the best.
 
 ## Adding library
 ```
