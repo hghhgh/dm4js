@@ -92,10 +92,60 @@ describe('dm4js', function () {
                 [395000, 240, 2000000, '3D NAND'],  // SSD Adata SU650
                 [361000, 240, 1000000, 'TLC'], // SSD Panther AS330
             ];
-            expect(dm4js.findLinearModelWeights(model, orderedchoices)).to.satisfy(function (res) {
+            expect(dm4js.findLinearModelWeights(model, orderedchoices, 500)).to.satisfy(function (res) {
                 console.log('res = ' + JSON.stringify(res));
                 // [.5, .4, .6, .3]
                 return res.fitness <= 0.00001;
+            });
+        });
+    });
+
+    describe('findLinearModelWeightsWithLargDist', function () {
+        this.timeout(100000);
+
+        it('should extract the values', function () {
+
+            let model = [
+                {
+                    label: 'price',
+                    // weight: .5,
+                    weight: .0,
+                    shouldbe: 'min',
+                    type: 'numerical'
+                },
+                {
+                    label: 'capacity',
+                    // weight: .4,
+                    weight: .0,
+                    shouldbe: 'max',
+                    type: 'numerical'
+                },
+                {
+                    label: 'lifetime',
+                    // weight: .6,
+                    weight: .0,
+                    shouldbe: 'max',
+                    type: 'numerical'
+                },
+                {
+                    label: 'flashtype',
+                    // weight: .3,
+                    weight: .0,
+                    shouldbe: 'max',
+                    type: 'ordered',
+                    categories: ['', 'TLC', '3D NAND', 'MLC', 'SLC'] // latest is the best
+                }
+            ];
+            let orderedchoices = [
+                [300000, 240, 1500000, 'TLC'], // SSD Pioneer APS-SL2
+                [395000, 240, 2000000, '3D NAND'],  // SSD Adata SU650
+                [425000, 240, 1750000, 'MLC'], // SSD San Disk SSD PLUS
+                [361000, 240, 1000000, 'TLC'], // SSD Panther AS330
+            ];
+            expect(dm4js.findLinearModelWeightsWithLargDist(model, orderedchoices, 5000)).to.satisfy(function (res) {
+                console.log('res = ' + JSON.stringify(res));
+                // [.5, .4, .6, .3]
+                return res.fitness < (1 / orderedchoices.length);
             });
         });
     });

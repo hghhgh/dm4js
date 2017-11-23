@@ -8,6 +8,11 @@ Currently the linear scalarization multi objective optimization is added to the 
 
 To know how algorithm find best choice use [this link](https://en.wikipedia.org/wiki/Multi-objective_optimization#Scalarizing)
 
+## Adding library
+```
+npm i --save dm4js
+```
+
 ## Usage example
 A simple usage of 'chooseLinear' is as below :
 
@@ -51,11 +56,6 @@ let choices = [
 let bestChoice = dmjs.chooseLinear(model, choices).BestIndex;
 ```
 bestChoice is 2 which means SSD Pioneer APS-SL2 is the best.
-
-## Adding library
-```
-npm i --save dm4js
-```
 
 ## Extracting a Model
 To find a model that fits on an ordered choices is as below :
