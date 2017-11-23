@@ -94,6 +94,8 @@ let chooseLinear = function (Model, Choices) {
  of us and the last one is the worst.
  The resulting Model (cost function) can be use in chooseLinear function to select best choice on some other
  products.
+
+ iteration: number of iteration for optimization algorithm to find the model (more iteration, better result)
  */
 let findLinearModelWeights = function (ZeroWeightModel, OrderedBestChoices, iteration) {
     console.log('here findLinearModelWeights');
@@ -244,6 +246,8 @@ let findLinearModelWeights = function (ZeroWeightModel, OrderedBestChoices, iter
  of us and the last one is the worst.
  The resulting Model (cost function) can be use in chooseLinear function to select best choice on some other
  products.
+
+ iteration: number of iteration for optimization algorithm to find the model (more iteration, better result)
  */
 let findLinearModelWeightsWithLargDist = function (ZeroWeightModel, OrderedBestChoices, iteration) {
     console.log('here findLinearModelWeights');
