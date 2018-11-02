@@ -109,7 +109,7 @@ let themodel = dm4js.findLinearModelWeights(model, choices, 1000);
 ```
 This function map our oppinion in prioritising products, it means that if we create a list of our faivorit products and this list will be ordered from best to worst, in fact we have an oppinion in our mind that make us to create these list. This oppinion can be modeled linearly as a weights of a linear model. The function : findLinearModelWeights can find this model.
 
-## Another Functions
+## Other Functions
 There are more functions in the library as below :
 
 ```
@@ -120,3 +120,6 @@ There are more functions in the library as below :
 */
 findLinearModelWeights(ZeroWeightModel, OrderedBestChoices, iteration)
 ```
+
+# My steps to Publish
+code => test => publish => revise code => test => publish new version ...

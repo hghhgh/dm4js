@@ -1,0 +1,110 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'publish' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.3
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/home/ghiassi/Projects/fromGit/dm4js',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /home/ghiassi/.npm/dm4js/0.2.2/package.tgz not in flight; packing
+9 verbose correctMkdir /home/ghiassi/.npm correctMkdir not in flight; initializing
+10 info lifecycle dm4js@0.2.2~prepublish: dm4js@0.2.2
+11 silly lifecycle dm4js@0.2.2~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/home/ghiassi/.npm/dm4js/0.2.2/package.tgz',
+12 verbose tar pack   '/home/ghiassi/Projects/fromGit/dm4js' ]
+13 verbose tarball /home/ghiassi/.npm/dm4js/0.2.2/package.tgz
+14 verbose folder /home/ghiassi/Projects/fromGit/dm4js
+15 verbose addLocalTarball adding from inside cache /home/ghiassi/.npm/dm4js/0.2.2/package.tgz
+16 verbose correctMkdir /home/ghiassi/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd dm4js@0.2.2
+18 verbose afterAdd /home/ghiassi/.npm/dm4js/0.2.2/package/package.json not in flight; writing
+19 verbose correctMkdir /home/ghiassi/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /home/ghiassi/.npm/dm4js/0.2.2/package/package.json written
+21 silly publish { name: 'dm4js',
+21 silly publish   version: '0.2.2',
+21 silly publish   description: 'Decision Making library for Javascript',
+21 silly publish   main: 'src/index.js',
+21 silly publish   scripts: { test: 'mocha src/index.test.js -w' },
+21 silly publish   repository: { type: 'git', url: 'git+https://github.com/hghhgh/dmjs.git' },
+21 silly publish   keywords: [ 'decision making' ],
+21 silly publish   author:
+21 silly publish    { name: 'H .ghiassirad',
+21 silly publish      email: 'hosein.ghiasy@gmail.com',
+21 silly publish      url: 'http://abrain.ir/' },
+21 silly publish   license: 'MIT',
+21 silly publish   bugs: { url: 'https://github.com/hghhgh/dmjs/issues' },
+21 silly publish   homepage: 'https://github.com/hghhgh/dmjs#readme',
+21 silly publish   dependencies: { 'genetic-js': '0.1.14' },
+21 silly publish   devDependencies: { chai: '4.1.2', mocha: '4.0.1' },
+21 silly publish   readme: '# dm4js\n\nThis library is a library for customer to make better decision.\n\nCurrently the linear scalarization multi objective optimization is added to the library. This technique score chices based on pre-defined wiegth vector and the minimize a linear function and select the lowest score. Each value can be select to be maximize or minize.\n\n* The chooseLinear(.,.) function first normalize the choices vector and then select the best.\n\nTo know how algorithm find best choice use [this link](https://en.wikipedia.org/wiki/Multi-objective_optimization#Scalarizing).\n\n## Adding library\n```\nnpm i --save dm4js\n```\n## Dependency\nCurrently there is only one dependecy for optimization algoritm. The library is \'genetic-js\' witch can be find [here](https://github.com/subprotocol/genetic-js).\nTo install dependency use command below :\n```\nnpm install genetic-js\n```\n\n\n## Usage example\nA simple usage of \'chooseLinear\' is as below :\n\n```\nlet dmjs = require(\'dm4js\');\n\nlet model = [\n    {\n        label: \'price\',\n        weight: .5,\n        shouldbe: \'min\',\n        type: \'numerical\'\n    },\n    {\n        label: \'capacity\',\n        weight: .4,\n        shouldbe: \'max\',\n        type: \'numerical\'\n    },\n    {\n        label: \'lifetime\',\n        weight: .6,\n        shouldbe: \'max\',\n        type: \'numerical\'\n    },\n    {\n        label: \'flashtype\',\n        weight: .3,\n        shouldbe: \'max\',\n        type: \'ordered\',\n        categories: [\'\', \'TLC\', \'3D NAND\', \'MLC\', \'SLC\'] // latest is the best\n    }\n];\nlet choices = [\n    [361000, 240, 1000000, \'TLC\'], // SSD Panther AS330\n    [425000, 240, 1750000, \'MLC\'], // SSD San Disk SSD PLUS\n    [300000, 240, 1500000, \'TLC\'], // SSD Pioneer APS-SL2\n    [395000, 240, 2000000, \'3D NAND\']  // SSD Adata SU650\n];\n\nlet bestChoice = dmjs.chooseLinear(model, choices).BestIndex;\n```\nbestChoice is 2 which means SSD Pioneer APS-SL2 is the best.\n\n## Extracting a Model\nWe use genetic algorithm to find desired model. The genetic algorithm is a global optimizer that means if there is a solution it can find it, and the result model is global optimum if the algorithm runs enough iterations.\nTo find a model that fits on an ordered choices is as below :\n```\nlet model = [\n    {\n        label: \'price\',\n        // weight: .5,\n        weight: .0,\n        shouldbe: \'min\',\n        type: \'numerical\'\n    },\n    {\n        label: \'capacity\',\n        // weight: .4,\n        weight: .0,\n        shouldbe: \'max\',\n        type: \'numerical\'\n    },\n    {\n        label: \'lifetime\',\n        // weight: .6,\n        weight: .0,\n        shouldbe: \'max\',\n        type: \'numerical\'\n    },\n    {\n        label: \'flashtype\',\n        // weight: .3,\n        weight: .0,\n        shouldbe: \'max\',\n        type: \'ordered\',\n        categories: [\'\', \'TLC\', \'3D NAND\', \'MLC\', \'SLC\'] // latest is the best\n    }\n];\nlet choices = [\n    [300000, 240, 1500000, \'TLC\'], // SSD Pioneer APS-SL2\n    [425000, 240, 1750000, \'MLC\'], // SSD San Disk SSD PLUS\n    [395000, 240, 2000000, \'3D NAND\'],  // SSD Adata SU650\n    [361000, 240, 1000000, \'TLC\'], // SSD Panther AS330\n];\nlet themodel = dm4js.findLinearModelWeights(model, choices, 1000);\n```\nThis function map our oppinion in prioritising products, it means that if we create a list of our faivorit products and this list will be ordered from best to worst, in fact we have an oppinion in our mind that make us to create these list. This oppinion can be modeled linearly as a weights of a linear model. The function : findLinearModelWeights can find this model.\n\n## Other Functions\nThere are more functions in the library as below :\n\n```\n/*\n Note : The diffrence of this function with \'findLinearModelWeights\' is that this function find a model such that\n the score of choices in ordered list be as largest as possible. But it take long time to converge, although may not\n be efficient\n*/\nfindLinearModelWeights(ZeroWeightModel, OrderedBestChoices, iteration)\n```',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: 'c66305f60604b95162efeba73d6e626cec67fffa',
+21 silly publish   _id: 'dm4js@0.2.2',
+21 silly publish   _shasum: '0548b6dd88c8bae5286176afb1b63f8a623ed636',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name dm4js
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'dm4js',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'dm4js',
+26 silly mapToRegistry   name: 'dm4js',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/dm4js
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /home/ghiassi/.npm/dm4js/0.2.2/package.tgz
+30 verbose request uri https://registry.npmjs.org/dm4js
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 5:02:40 PM
+33 verbose request using bearer token for auth
+34 verbose request id 7d10b1ae3b9d9092
+35 http request PUT https://registry.npmjs.org/dm4js
+36 http 403 https://registry.npmjs.org/dm4js
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '91',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Thu, 23 Nov 2017 13:32:43 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-jfk8129-JFK',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1511443962.226876,VS0,VE1090',
+37 verbose headers   vary: 'Accept-Encoding, Accept' }
+38 verbose request invalidating /home/ghiassi/.npm/registry.npmjs.org/dm4js on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: You cannot publish over the previously published version 0.2.2. : dm4js
+40 verbose stack     at makeError (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:969:12)
+41 verbose statusCode 403
+42 verbose pkgid dm4js
+43 verbose cwd /home/ghiassi/Projects/fromGit/dm4js
+44 error Linux 4.6.0-040600-generic
+45 error argv "/usr/bin/node" "/usr/bin/npm" "publish"
+46 error node v6.11.3
+47 error npm  v3.10.10
+48 error code E403
+49 error You cannot publish over the previously published version 0.2.2. : dm4js
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
