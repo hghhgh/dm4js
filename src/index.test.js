@@ -3,7 +3,7 @@
  */
 
 let expect = require('chai').expect;
-let dm4js = require('./index');
+let dm4js = require('../index');
 
 
 describe('dm4js', function () {
@@ -43,7 +43,7 @@ describe('dm4js', function () {
                 [300000, 240, 1500000, 'TLC'], // SSD Pioneer APS-SL2
                 [395000, 240, 2000000, '3D NAND']  // SSD Adata SU650
             ];
-            expect(dm4js.LinearModel.chooseLinear(model, choices)).to.satisfy(function (res) {
+            expect(dm4js.chooseLinear(model, choices)).to.satisfy(function (res) {
                 return res.BestIndex == 2;
             });
 
@@ -92,7 +92,7 @@ describe('dm4js', function () {
                 [395000, 240, 2000000, '3D NAND'],  // SSD Adata SU650
                 [361000, 240, 1000000, 'TLC'], // SSD Panther AS330
             ];
-            expect(dm4js.LinearModel.findLinearModelWeights(model, orderedchoices, 500)).to.satisfy(function (res) {
+            expect(dm4js.findLinearModelWeights(model, orderedchoices, 500)).to.satisfy(function (res) {
                 console.log('res = ' + JSON.stringify(res));
                 // [.5, .4, .6, .3]
                 return res.fitness <= 0.00001;
@@ -142,7 +142,7 @@ describe('dm4js', function () {
                 [425000, 240, 1750000, 'MLC'], // SSD San Disk SSD PLUS
                 [361000, 240, 1000000, 'TLC'], // SSD Panther AS330
             ];
-            expect(dm4js.LinearModel.findLinearModelWeightsWithLargDist(model, orderedchoices, 5000)).to.satisfy(function (res) {
+            expect(dm4js.findLinearModelWeightsWithLargDist(model, orderedchoices, 5000)).to.satisfy(function (res) {
                 console.log('res = ' + JSON.stringify(res));
                 // [.5, .4, .6, .3]
                 return res.fitness < (1 / orderedchoices.length);
@@ -157,7 +157,7 @@ describe('dm4js', function () {
             let P_En_Hn = .99; // specificity of test
             let P_Hp = 1.48 / 1000; // prevalence of hypothesis
 
-            expect(dm4js.BayesianInference.findProbability4Bayes(P_Hp, P_Ep_Hp, P_En_Hn)).to.satisfy(function (res) {
+            expect(dm4js.findProbability4Bayes(P_Hp, P_Ep_Hp, P_En_Hn)).to.satisfy(function (res) {
                 return res.P_Hp.toFixed(5) == '0.00148' && res.P_Ep_Hp.toFixed(2) == '0.93' && res.P_En_Hp.toFixed(2) == '0.07' &&
                     res.P_Hn.toFixed(5) == '0.99852' && res.P_Ep_Hn.toFixed(2) == '0.01' && res.P_En_Hn.toFixed(2) == '0.99';
             });
@@ -177,7 +177,7 @@ describe('dm4js', function () {
                 P_En_Hn: 0.99
             };
 
-            expect(dm4js.BayesianInference.inferBayesian(probs).toFixed(6)).to.equal('0.121145');
+            expect(dm4js.inferBayesian(probs).toFixed(6)).to.equal('0.121145');
         });
     });
 

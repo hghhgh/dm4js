@@ -2,13 +2,15 @@
 
 This library is a library for customer to make better decision.
 
-Currently the linear scalarization multi objective optimization is added to the library. This technique score chices based on pre-defined wiegth vector and the minimize a linear function and select the lowest score. Each value can be select to be maximize or minize.
+- Currently the linear scalarization multi objective optimization is added to the library. This technique score chices based on pre-defined wiegth vector and the minimize a linear function and select the lowest score. Each value can be select to be maximize or minize.
 
-* The chooseLinear(.,.) function first normalize the choices vector and then select the best.
+    * The chooseLinear(.,.) function first normalize the choices vector and then select the best.
+    To know how algorithm find best choice use [this link](https://en.wikipedia.org/wiki/Multi-objective_optimization#Scalarizing).
 
-To know how algorithm find best choice use [this link](https://en.wikipedia.org/wiki/Multi-objective_optimization#Scalarizing).
+- and Bayesian inference for diagnosis
 
 ## Adding library
+npm library > [here](https://www.npmjs.com/package/dm4js)
 ```
 npm i --save dm4js
 ```
@@ -21,6 +23,8 @@ npm install genetic-js
 
 
 ## Usage example
+See test file for more examples !.
+
 A simple usage of 'chooseLinear' is as below :
 
 ```
